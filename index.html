@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Глобальный список с модерацией</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+        .panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex: 1;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button.danger {
+            background-color: #f44336;
+        }
+        button.danger:hover {
+            background-color: #d32f2f;
+        }
+        button.secondary {
+            background-color: #2196F3;
+        }
+        button.secondary:hover {
+            background-color: #0b7dda;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        .change-item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #fff9e6;
+            border-radius: 4px;
+        }
+        .user-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+        .owner {
+            background-color: #ffcccc;
+        }
+        .moderator {
+            background-color: #ccffcc;
+        }
+        .hidden {
+            display: none;
+        }
+        #logoutBtn {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div id="authPanel">
+        <h1>Глобальный список с модерацией</h1>
+        <h2>Вход / Регистрация</h2>
+        <div>
+            <label for="username">Имя пользователя:</label>
+            <input type="text" id="username" required>
+            
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" required>
+            
+            <button id="loginBtn">Войти</button>
+            <button id="registerBtn">Зарегистрироваться</button>
+        </div>
+    </div>
+
+    <div id="appPanel" class="hidden">
+        <h1>Глобальный список <button id="logoutBtn">Выйти</button></h1>
+        <p>Вы вошли как: <span id="currentUser"></span></p>
+        
+        <div class="container">
+            <div class="panel">
+                <h2>Список элементов</h2>
+                <div id="itemsList"></div>
+                
+                <h2>Добавить новый элемент</h2>
+                <input type="text" id="newItem" placeholder="Новый элемент">
+                <button id="addItemBtn">Добавить</button>
+            </div>
+            
+            <div class="panel">
+                <h2>Ожидающие изменения <span id="pendingCount"></span></h2>
+                <div id="pendingChanges"></div>
+                
+                <div id="moderationPanel" class="hidden">
+                    <h3>Модерация</h3>
+                    <textarea id="rejectReason" placeholder="Причина отклонения (если нужно)"></textarea>
+                    <button id="approveBtn" class="secondary">Одобрить</button>
+                    <button id="rejectBtn" class="danger">Отклонить</button>
+                </div>
+                
+                <div id="adminPanel" class="hidden">
+                    <h2>Управление модераторами</h2>
+                    <input type="text" id="moderatorUsername" placeholder="Имя пользователя">
+                    <button id="promoteBtn">Назначить модератором</button>
+                    <button id="demoteBtn" class="danger">Снять модератора</button>
+                    <div id="moderatorsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+  </html>
